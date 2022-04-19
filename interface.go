@@ -78,6 +78,7 @@ type TransactionService interface {
 type WebsocketService interface {
 	NewMempoolWebsocket(handler SocketHandler) *centrifuge.Client
 	NewBlockHeadersWebsocket(handler SocketHandler) *centrifuge.Client
+	NewBlockHeadersHistoryWebsocket(handler SocketHandler, from string) *centrifuge.Client
 }
 
 // ClientInterface is the WhatsOnChain client interface

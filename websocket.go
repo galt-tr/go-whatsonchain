@@ -1,12 +1,15 @@
 package whatsonchain
 
 import (
+	"log"
+
 	"github.com/centrifugal/centrifuge-go"
 )
 
 const (
-	socketEndpointMempool      = "mempool"
-	socketEndpointBlockHeaders = "blockheaders"
+	socketEndpointMempool             = "mempool"
+	socketEndpointBlockHeaders        = "blockheaders"
+	socketEndpointBlockHeadersHistory = "blockheaders/history"
 )
 
 // SocketHandler describe the interface
@@ -53,4 +56,10 @@ func newWebsocketClient(url string, handler SocketHandler) (client *centrifuge.C
 // NewBlockHeadersWebsocket instantiates a new websocket client to stream block headers
 func (c *Client) NewBlockHeadersWebsocket(handler SocketHandler) *centrifuge.Client {
 	return newWebsocketClient(socketEndpoint+socketEndpointBlockHeaders, handler)
+}
+
+// NewBlockHeadersHistoryWebsocket instantiates a new websocket client to stream block headers
+func (c *Client) NewBlockHeadersHistoryWebsocket(handler SocketHandler, from string) *centrifuge.Client {
+	log.Printf("%v", socketEndpoint+socketEndpointBlockHeadersHistory+"?from="+from)
+	return newWebsocketClient(socketEndpoint+socketEndpointBlockHeadersHistory+"?from="+from, handler)
 }
